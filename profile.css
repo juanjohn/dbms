@@ -1,0 +1,187 @@
+*{
+	margin:0px 0px;
+	padding:0px 0px;
+	color:#000;
+}
+body{
+	background-color:#fff;
+}
+ul{
+	list-style:none;
+}
+header, nav, section, article, footer ,aside, hgroup{
+	display:inline-block;
+}
+#big_wrapper : not(#header_main){
+	position:relative;
+	height:20px;
+	width:1000px;
+	border:1px solid black;
+}
+#big_wrapper{	
+  	text-align: center;
+ 	position:relative;
+ 	margin: -15px 0px 0px;
+}
+#header_main{
+	background-image: url(./images/univ.jpg);
+	text-align:left;
+	position:relative;
+	width:100%;
+	top:0px;
+	height:150px;
+	background-color:#dee7ee;
+}
+section{
+	margin:10px 0px;
+	padding:10px;
+	position:relative;
+	text-align:left;
+	width:900px;
+	min-height:600px;
+	border:2px solid #b3b8c8;
+	background-color:#fff;
+}
+#footer{
+	background-image: url(./ruged.jpg);
+	position:relative;
+	bottom:0px;
+	width:100%;
+	height:100px;
+	margin-top:20px;
+	border-top:2px solid #b3b8c8;
+}
+#footer p {
+	color:#000;
+}
+#aside_left{
+	position:relative;
+	width:220px;
+	float:left;
+	height:600px;
+	margin:10px 5px 0px;
+	padding:10px;
+	background-color:#fff;
+}
+#section_left{
+	float:left;
+}
+#section_right{
+	float:right;
+	position:relative;
+	margin:0px 10px;
+	width:250px;	
+	float:right;
+}
+#section_right div{
+	margin:4px 0px;
+}
+#section_left ul{
+	cursor:pointer;
+}
+input{
+	margin:4px 0px;
+	padding:3px;
+}
+input[type="button"],[type="submit"]{
+	padding:1px;
+}
+i{
+	color:blue;
+	font-style:normal;
+}
+#file_list_ul{
+	width:100%;
+}
+#file_list tr:nth-child(odd){
+	background-color:#e8e9e9;
+}
+#file_list tr{
+	cursor:pointer;
+}
+.users{
+	width:150px;
+}
+#header_main p {
+	color:#fff;
+}
+input[type="text"],[type="password"],#file_list{
+	width:200px;
+	border:2px solid white; 
+    box-shadow:inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.2); 
+}
+input[type="search"]{
+	width:200px;
+	border:2px solid white; 
+	box-shadow: 0 0 16px rgba(0,0,0,0.2);
+}
+section,#aside_left,#aside_left #chat_msgs{
+	border:2px solid white;
+	box-shadow:inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.5);
+}
+#aside_left{
+	position:static;
+	z-index:10;
+}
+#search_section{
+	float:right;
+}
+#file_list{
+	position:relative;
+	height:500px;
+	width:550px;
+	overflow-y:scroll;
+	background-color:rgb(255, 255, 255);
+}
+#image_full_display_bg{
+	display:none;
+	position:absolute;
+	width:100%;
+	height:150%;
+	z-index:3;
+	background-image:url(../images/opac-80.png);
+}
+#image_full_display{
+	display:none;
+	position:absolute;
+	left:400px;
+	top:120px;
+	width:600px;
+	height:600px;
+	z-index:3;
+}
+a{
+	text-decoration:none;
+}
+#auto_suggest{
+	display:none;
+	border:2px solid white;
+	background-color:#FFF;
+    box-shadow: 0 0 16px rgba(0,0,0,0.2);
+	position:absolute;
+	width:200px;
+	top:58px;
+	z-index:1;
+}
+#proj_description{
+	display:none;
+}
+#description{
+	width:320px;
+}
+#social1,#social2{
+	position:relative;
+	top:-7px;
+}
+#social3{
+	position:relative;
+	top:-4px;
+}
+#social1:hover,#social2:hover{
+	position:relative;
+	top:-9px;
+}
+#social3:hover{
+	position:relative;
+	top:-6px;
+}
