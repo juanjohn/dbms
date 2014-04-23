@@ -2,21 +2,9 @@
 
 session_start();
 
-include '../connect.inc.php';
-$id=$_SESSION["user_id"];
-$query="SELECT * FROM `faculty_details` WHERE `id`='$id'";
-$query_exec=mysql_query($query);
+include 'connect.inc.php';
 
-if($result=mysql_fetch_assoc($query_exec))
-{
-	$username=$result["username"];
-	$_SESSION["username"]=$username;
-	$_SESSION["university"]=$result["university"];
-}
-$department=$result["department"];
-$university=$_SESSION["university"];
-
-$query="SELECT `id`, `degree`, `department`, `year`, `subject` FROM `courses` WHERE `department`='$department' ORDER BY `subject`";
+/*$query="SELECT `id`, `degree`, `department`, `year`, `subject` FROM `courses` WHERE `department`='$department' ORDER BY `subject`";
 $query_exec=mysql_query($query);
 $innerHTML="";
 while($res=mysql_fetch_assoc($query_exec))
@@ -64,10 +52,12 @@ if($numOfSub==1)
 $queryRankListInsert="INSERT INTO `ranklist`(`id`,`university`, `name`, `rollno`, `department`, `year`, `average_marks`, `number_of_subjects`, `pass`) VALUES ('','$university','$name','$rollnumber','$department','$year','$newAverage','$numOfSub','$pass')";
 $query_execInsert=mysql_query($queryRankListInsert);
 
-}
+}*/
 
-if(isset($_POST["year_2"]) && !empty($_POST["year_2"])){
+if(isset($_POST["year_2"]) && !empty($_POST["year_2"]) && !empty($_POST["department"]) && !empty($_POST["university"])){
 $year=$_POST["year_2"];
+$university=$_POST["university"];
+$department=$_POST["department"];
 $query="SELECT `id`,`university`, `name`, `rollno`, `department`, `year`, `average_marks`, `number_of_subjects`, `pass` FROM `ranklist` WHERE `department`='$department' AND `year`='$year' AND `university`='$university' ORDER BY `average_marks` DESC";
 $query_exec=mysql_query($query);
 $innerHTML_results="<br/><hr/><br/><p>You are viewing results for <b>$university</b><p><br/>";
@@ -85,8 +75,9 @@ $i++;
 $innerHTML_results.="</table>";
 }
 
-if(isset($_POST["year_2_o"]) && !empty($_POST["year_2_o"])){
+if(isset($_POST["year_2_o"]) && !empty($_POST["year_2_o"]) && !empty($_POST["department_o"])){
 $year=$_POST["year_2_o"];
+$department=$_POST["department_o"];
 $query="SELECT `id`,`university`, `name`, `rollno`, `department`, `year`, `average_marks`, `number_of_subjects`, `pass` FROM `ranklist` WHERE `department`='$department' AND `year`='$year' ORDER BY `average_marks` DESC";
 $query_exec=mysql_query($query);
 $innerHTML_results_o="<br/><hr/><br/><p>Overall Results</b><p><br/>";
@@ -97,8 +88,8 @@ while($ranks=mysql_fetch_assoc($query_exec)){
 $rollnumber=$ranks["rollno"];
 $name=$ranks["name"];
 $pass=$ranks["pass"];
-$universities=$ranks["university"];
-        $innerHTML_results_o.="<tr id=\"$i\"><td>$i</td><td>$i</td><td>$universities</td><td>$department</td><td>$year</td><td>$rollnumber</td><td>$name</td><td>$pass</td></tr>";
+$university=$ranks["university"];
+        $innerHTML_results_o.="<tr id=\"$i\"><td>$i</td><td>$i</td><td>$university</td><td>$department</td><td>$year</td><td>$rollnumber</td><td>$name</td><td>$pass</td></tr>";
 $i++;
 
 }
@@ -110,15 +101,13 @@ echo "
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"../profile.css\" />
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"../footer.css\" />
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"profile.css\" />
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"footer.css\" />
         <title>University Ranking System</title>
-        <link type=\"text/css\" rel=\"stylesheet\" href=\"../styling.css\" />
+        <link type=\"text/css\" rel=\"stylesheet\" href=\"styling.css\" />
         <script type=\"text/javascript\">
 
 	function populate(){
-		document.getElementById('subject_drop').innerHTML+='$innerHTML';
-		document.getElementById('main').innerHTML+='$innerHTML_main';
 		document.getElementById('divresults').innerHTML+='$innerHTML_results'; 
 		document.getElementById('divallresults').innerHTML+='$innerHTML_results_o';
 	}
@@ -129,8 +118,7 @@ echo "
         <header id=\"header_main\">
         </header>
         <nav id=\"navigation\" style=\"postion:relative;opacity:1;\">
-	<ul><a href=\"../index.php\"><li><p>Home</p></li></a>
-	<a href=\"../index.php\"><li style=\"float:right;\"><p>Logout</p></li></a>
+	<ul><a href=\"index.php\"><li><p>Home</p></li></a>
 	</ul>
         </nav>
         <div id=\"big_wrapper\">
@@ -138,24 +126,18 @@ echo "
 
 
         <section>
-	<p>Welcome ".$username.". </p><p>From:$university</p>
+	<p>Welcome Guest User. <br/>You are welcome to view the ranklist.Please choose the preferences. </p>
 	<br/>
-	<div>
-	Choose the subject you wish to enter marks in:
-	<form method='post' action='./index.php'>
-	<select id='subject_drop' name='subject_drop'>
-	<option>-------</option>
-	</select>
-	<input type='submit' value='Enter Marks'/>
-	</form>
 	<div>
 	<br/>
 	<div id='main'>
 
 	</div>
 	<div id='resultsDiv'><br/>
-	<p>View results in your university:</p>
-	<form method='post' action='./index.php'>
+	<p>View results of the university :</p>
+	<form method='post' action='./guest.php'>
+	<input type='text' name='university' placeholder='Enter university'/>
+        <input type='text' name='department' placeholder='Enter Department'/>
 	<input type='text' name='year_2' placeholder='Enter Year'/>
 	<input type='submit' value='view'/>
 	</form>
@@ -163,7 +145,8 @@ echo "
 
 	<div id='resultsAllDiv'><br/>
         <p>View Overall results:</p>
-        <form method='post' action='./index.php'>
+        <form method='post' action='./guest.php'>
+	<input type='text' name='department_o' placeholder='Enter Department'/>
         <input type='text' name='year_2_o' placeholder='Enter Year'/>
         <input type='submit' value='view'/>
         </form>

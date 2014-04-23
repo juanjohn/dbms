@@ -10,6 +10,7 @@ $query_exec=mysql_query($query);
 if($result=mysql_fetch_assoc($query_exec))
 {
 	$username=$result["username"];
+	$university=$result["university"];
 }
 
 
@@ -32,7 +33,7 @@ while($arr=mysql_fetch_assoc($query_exec))
         $year=$arr["year"];
         $i++;
 	$subject=$arr["subject"];
-	$innerHTML.="<tr id=\"$i\"><td>$i</td><td>$degree</td><td>$department</td><td>$subject</td><td><div></div></td></tr>";
+	$innerHTML.="<tr id=\"$i\"><td>$i</td><td>$university</td><td>$degree</td><td>$department</td><td>$subject</td></tr>";
 }
 $innerHTML.="</table>";
 $innerHTML.="<form method=\"post\" action=\"./index.php\"><input type=\"hidden\" value=\"done\" id=\"registered\" name=\"registered\"/><input type=\"submit\"/></form>";
@@ -53,7 +54,7 @@ while($arr=mysql_fetch_assoc($query_exec1))
 for($i;$i<6;$i++){
 $subj[$i]="";
 }
-$query2="INSERT INTO `subjects_registered`(`id`, `username`, `degree` ,`year`, `department`, `sub1`, `sub2`, `sub3`, `sub4`, `sub5`, `sub6`) VALUES ('','$username','$degree','$year','$department','$subj[0]','$subj[1]','$subj[2]','$subj[3]','$subj[4]','$subj[5]')";
+$query2="INSERT INTO `subjects_registered`(`id`, `university`, `username`, `degree` ,`year`, `department`, `sub1`, `sub2`, `sub3`, `sub4`, `sub5`, `sub6`) VALUES ('','$university','$username','$degree','$year','$department','$subj[0]','$subj[1]','$subj[2]','$subj[3]','$subj[4]','$subj[5]')";
 $query_exec2=mysql_query($query2);
 	$innerHTML="You have successfully registered!";
 }
@@ -79,25 +80,30 @@ echo "
 
         <header id=\"header_main\">
         </header>
-        <nav id=\"navigation\">
-
+	<nav id=\"navigation\" style=\"postion:relative;opacity:1;\">               
+        <ul><a href=\"../index.php\"><li><p>Home</p></li></a>                       
+        <a href=\"../index.php\"><li style=\"float:right;\"><p>Logout</p></li></a>  
+        </ul>
         </nav>
+
         <div id=\"big_wrapper\">
 
 
 
         <section>
 	<p>Welcome ".$username."</p>
+	<p>You are registering for courses in $university</p><br/>
 	<form method='post' action='./index.php'>
 	<input type='text' name='degree' placeholder='degree'/>
 	<input type='text' name='department' placeholder='department'/>
 	<input type='text' name='year' placeholder='year'/>
 	<br/>
 	<input type='submit' value='Apply'/>
+	</form>
+
 	<div id='main'>
 
 	</div>
-	</form>
 	</section>
 
         <footer id=\"footer\">

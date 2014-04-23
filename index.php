@@ -22,9 +22,11 @@ echo "
 
         <header id=\"header_main\">
         </header>
-        <nav id=\"navigation\">
-
+	<nav id=\"navigation\" style=\"postion:relative;opacity:1;\">               
+        <ul><a href=\"../index.php\"><li><p>Home</p></li></a>                       
+        </ul>
         </nav>
+
 	<div id=\"big_wrapper\">
 
 
@@ -60,6 +62,10 @@ echo "
         </form>
 
 	</div>
+	</div>
+	<div style='clear:both'>
+	<br/><br/>
+	<b><a href='./guest.php' style='underline:none'>Guest Login</a></b>
 	</div>
         </section>
 

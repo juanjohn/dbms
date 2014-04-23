@@ -9,18 +9,19 @@ $repassword=$_POST["repassword"];
 $DOB=$_POST["DOB"];
 $YoP=$_POST["YoP"];
 $degree=$_POST["degree"];
-$department=$_POST["department"];
-
+$department=$_POST["department_b"].$_POST["department_m"].$_POST["department_m1"].$_POST["department_b1"];
+$university=$_POST["university"];
+$university_f=$_POST["university_f"];
 $select_department_f=$_POST["select_department_f"];
 if(isset($_POST["name"]) && isset($_POST["DOB"]) && !empty($_POST["DOB"]) && !empty($_POST["name"])) 
 {
-	$query="INSERT INTO `student_details`(`id`, `name`, `username`, `password`, `DOB`, `YoP`, `degree`, `department`) VALUES ('','$name','$username','$password','$DOB','$YoP','$degree','$department')";
+	$query="INSERT INTO `student_details`(`id`, `university`,  `name`, `username`, `password`, `DOB`, `YoP`, `degree`, `department`) VALUES ('','$university','$name','$username','$password','$DOB','$YoP','$degree','$department')";
 	$query_exec=mysql_query($query);
 
 }
 
 if(isset($_POST["select_department_f"]) && !empty($_POST["select_department_f"])){
-        $query="INSERT INTO `faculty_details`(`id`, `name`, `username`, `password`, `department`) VALUES ('','$name','$username','$password','$select_department_f')";
+        $query="INSERT INTO `faculty_details`(`id`,`university`, `name`, `username`, `password`, `department`) VALUES ('','$university_f','$name','$username','$password','$select_department_f')";
 	$query_exec=mysql_query($query);
 }
 
@@ -56,14 +57,31 @@ echo "
 	}
 	function select_department(){
 		var course=document.getElementById('degree').value;
-		if(course=='B tech')
+		if(course=='B tech'){
 			document.getElementById('dept_btech').style.display='inline';
-		if(course=='M tech')
-			document.getElementById('dept_mtech').style.display='inline';
-		if(course=='B Sc')
-			document.getElementById('dept_bsc').style.display='inline';
-		if(course=='M Sc')
-			document.getElementById('dept_msc').style.display='inline';
+			document.getElementById('dept_mtech').style.display='none';
+			document.getElementById('dept_bsc').style.display='none';
+			document.getElementById('dept_msc').style.display='none';
+		}
+		if(course=='M tech'){
+                        document.getElementById('dept_btech').style.display='none';
+                        document.getElementById('dept_mtech').style.display='inline';
+                        document.getElementById('dept_bsc').style.display='none';
+                        document.getElementById('dept_msc').style.display='none';
+                }
+		if(course=='B Sc'){
+                        document.getElementById('dept_btech').style.display='none';
+                        document.getElementById('dept_mtech').style.display='none';
+                        document.getElementById('dept_bsc').style.display='inline';
+                        document.getElementById('dept_msc').style.display='none';
+                }
+		if(course=='M Sc'){
+                        document.getElementById('dept_btech').style.display='none';
+                        document.getElementById('dept_mtech').style.display='none';
+                        document.getElementById('dept_bsc').style.display='none';
+                        document.getElementById('dept_msc').style.display='inline';
+                }
+
 	}
         </script>    
 </head>
@@ -71,9 +89,11 @@ echo "
 
         <header id=\"header_main\">
         </header>
-        <nav id=\"navigation\">
-
+	<nav id=\"navigation\" style=\"postion:relative;opacity:1;\">
+        <ul><a href=\"../index.php\"><li><p>Home</p></li></a>
+        </ul>
         </nav>
+
         <div id=\"big_wrapper\">
 
 
@@ -122,6 +142,10 @@ echo "
 	<input type='text' name='YoP' id='YoP'/>
 	</p>
 	<br/>
+	<div>
+        <p>Enter University:<input type='text' name='university' placeholder='Enter University'</p>
+        </div>
+	<br/>
 	<p>
 	Choose degree:
 	<select id='degree' name='degree' onchange='select_department()' >
@@ -133,10 +157,10 @@ echo "
 	</select>
 	</p>
 	<p>
-
 	<div id='dept_btech' style='display:none;'>
 	Choose Department:
-	<select id='department' name='department'>
+	<select id='department' name='department_b'>
+	<option></option>
 	<option>Computer Science</option>
 	<option>Electrical</option>
 	<option>Electronics and Communication</option>
@@ -152,7 +176,8 @@ echo "
 	
 	<div id='dept_mtech'>
 	Choose Department:
-	<select id='department' name='department'>
+	<select id='department' name='department_m'>
+	<option></option>
 	<option>Fire and Safety</option>
 	<option>Electrical</option>
 	<option>Chemical</option>
@@ -163,7 +188,8 @@ echo "
 
 	<div id='dept_bsc'>
 	Choose Department:
-	<select id='department' name='department'>
+	<select id='department' name='department_b1'>
+	<option></option>
 	<option>Physics</option>
 	<option>Chemistry</option>
 	<option>Maths</option>
@@ -173,7 +199,8 @@ echo "
 
 	<div id='dept_msc'>
 	Choose Department:
-	<select id='department' name='department'>
+	<select id='department' name='department_m1'>
+	<option></option>
 	<option>Pysics</option>
 	<option>Chemistry</option>
 	<option>Botany</option>
@@ -214,6 +241,10 @@ echo "
         <input type='password' id='repassword' name='repassword'/>
         </p>
 	<div>
+	<br/>
+	<div>
+        <p>Enter University:<input type='text' name='university_f' placeholder='Enter University'</p>
+        </div>
 	<br/>
 	Choose department:
 	<select name='select_department_f' id='select_department_f'>
